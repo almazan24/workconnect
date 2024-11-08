@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Usuarios Disponibles | WorkConnect</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Usuarios Disponibles</h1>
+    </header>
+
+    <section class="users-section">
+        <h2>Usuarios Relacionados con el Puesto</h2>
+        <ul id="usuarios-lista">
+        </ul>
+    </section>
+
+    <footer>
+        <p>© 2024 WorkConnect. Todos los derechos reservados.</p>
+    </footer>
+
+    <script>
+        const usuariosDisponibles = [
+            {
+                nombre: "Carlos Ramírez",
+                email: "carlos.ramirez@sistemas.com",
+                telefono: "+52 55 9876 5432",
+                experiencia: "5 años de experiencia en desarrollo de software. Especializado en backend con tecnologías como Node.js y bases de datos relacionales.",
+                gradoAcademico: "Ingeniero en Sistemas Computacionales",
+                ubicacion: "Monterrey, Nuevo León",
+                puestoDeseado: "Desarrollador Backend"
+            }
+        ];
+        const listaUsuarios = document.getElementById('usuarios-lista');
+
+        usuariosDisponibles.forEach(usuario => {
+            const usuarioItem = document.createElement('li');
+            usuarioItem.innerHTML = `
+                <div class="user-container">
+                    <h3>${usuario.nombre}</h3>
+                    <p><strong>Email:</strong> ${usuario.email}</p>
+                    <p><strong>Teléfono:</strong> ${usuario.telefono}</p>
+                    <p><strong>Experiencia:</strong> ${usuario.experiencia}</p>
+                    <p><strong>Grado Académico:</strong> ${usuario.gradoAcademico}</p>
+                    <p><strong>Ubicación:</strong> ${usuario.ubicacion}</p>
+                    <p><strong>Puesto Deseado:</strong> ${usuario.puestoDeseado}</p>
+                    <div class="user-buttons">
+                        <button class="button" onclick="window.location.href='tel:${usuario.telefono}'">Llamar</button>
+                        <button class="button" onclick="window.location.href='mailto:${usuario.email}?subject=Oportunidad de empleo para el puesto de ${usuario.puestoDeseado}'">Contactar</button>
+                    </div>
+                </div>
+            `;
+            listaUsuarios.appendChild(usuarioItem);
+        });
+    </script>
+
+    <style>
+        .user-container {
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .user-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .button {
+            background-color: #81c784;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .button:hover {
+            background-color: #66bb6a;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e8f5e9; 
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        header {
+            background-color: #66bb6a; 
+            padding: 10px;
+            text-align: center;
+        }
+
+        h1 {
+            color: white;
+            margin: 0;
+        }
+
+        .users-section {
+            padding: 20px;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        footer {
+            background-color: #388e3c;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</body>
+</html>

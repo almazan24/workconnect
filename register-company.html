@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Compañía | WorkConnect</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="logo.jpeg" alt="WorkConnect Logo" class="logo-img">
+        </div>
+    </header>
+
+    <section class="register-section">
+        <h2>Registro de Compañía</h2>
+        <p>Por favor completa la información para registrar tu empresa.</p>
+        <form id="company-register-form">
+            <label for="nombreEmpresa">Nombre de la Empresa:</label>
+            <input type="text" id="nombreEmpresa" name="nombreEmpresa" required>
+
+            <label for="emailEmpresa">Correo Electrónico de la Empresa:</label>
+            <input type="email" id="emailEmpresa" name="emailEmpresa" required>
+
+            <label for="usuarioEmpresa">Usuario de la Empresa:</label>
+            <input type="text" id="usuarioEmpresa" name="usuarioEmpresa" required>
+
+            <label for="passwordEmpresa">Contraseña:</label>
+            <input type="password" id="passwordEmpresa" name="passwordEmpresa" required>
+
+            <label for="telefonoEmpresa">Teléfono de la Empresa:</label>
+            <input type="tel" id="telefonoEmpresa" name="telefonoEmpresa" required>
+
+            <label for="direccionEmpresa">Dirección de la Empresa:</label>
+            <input type="text" id="direccionEmpresa" name="direccionEmpresa" required>
+
+            <label for="sectorEmpresa">Sector:</label>
+            <select id="sectorEmpresa" name="sectorEmpresa" required>
+                <option value="tecnologia">Tecnología</option>
+                <option value="finanzas">Finanzas</option>
+                <option value="educacion">Educación</option>
+                <option value="salud">Salud</option>
+                <option value="manufactura">Manufactura</option>
+                <!-- más sectores -->
+            </select>
+
+            <label for="descripcionEmpresa">Descripción de la Empresa:</label>
+            <textarea id="descripcionEmpresa" name="descripcionEmpresa" required></textarea>
+
+            <button type="submit" class="button">Registrarse</button>
+        </form>
+
+        <div id="companias-registradas"></div>
+    </section>
+
+    <footer>
+        <p>© 2024 WorkConnect. Todos los derechos reservados.</p>
+    </footer>
+
+    <script>
+        const form = document.getElementById('company-register-form');
+        const companiasRegistradas = document.getElementById('companias-registradas');
+        const mostrarCompanias = () => {
+            const companias = JSON.parse(localStorage.getItem('companias')) || [];
+            if (companias.length > 0) {
+                companiasRegistradas.innerHTML = '<h3>Compañías Registradas</h3>' + companias.map(c => `<p>${c.nombreEmpresa} (${c.emailEmpresa})</p>`).join('');
+            } else {
+                companiasRegistradas.innerHTML = '<p>No hay compañías registradas aún.</p>';
+            }
+        };
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const nuevaCompania = {
+                nombreEmpresa: form.nombreEmpresa.value,
+                emailEmpresa: form.emailEmpresa.value,
+                usuarioEmpresa: form.usuarioEmpresa.value,
+                passwordEmpresa: form.passwordEmpresa.value,
+                telefonoEmpresa: form.telefonoEmpresa.value,
+                direccionEmpresa: form.direccionEmpresa.value,
+                sectorEmpresa: form.sectorEmpresa.value,
+                descripcionEmpresa: form.descripcionEmpresa.value
+            };
+            const companias = JSON.parse(localStorage.getItem('companias')) || [];
+            companias.push(nuevaCompania);
+            localStorage.setItem('companias', JSON.stringify(companias));
+            mostrarCompanias(); 
+            form.reset();
+            window.location.href = 'iniciar-sesion.html';
+        });
+
+        mostrarCompanias(); 
+    </script>
+</body>
+</html>
