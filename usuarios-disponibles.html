@@ -33,26 +33,44 @@
                 puestoDeseado: "Desarrollador Backend"
             }
         ];
-        const listaUsuarios = document.getElementById('usuarios-lista');
 
-        usuariosDisponibles.forEach(usuario => {
+        const listaUsuarios = document.getElementById('usuarios-lista');
+        const companias = JSON.parse(localStorage.getItem('companias')) || [];
+        const crearUsuarioElemento = (usuario) => {
             const usuarioItem = document.createElement('li');
             usuarioItem.innerHTML = `
                 <div class="user-container">
                     <h3>${usuario.nombre}</h3>
                     <p><strong>Email:</strong> ${usuario.email}</p>
                     <p><strong>Teléfono:</strong> ${usuario.telefono}</p>
-                    <p><strong>Experiencia:</strong> ${usuario.experiencia}</p>
-                    <p><strong>Grado Académico:</strong> ${usuario.gradoAcademico}</p>
-                    <p><strong>Ubicación:</strong> ${usuario.ubicacion}</p>
-                    <p><strong>Puesto Deseado:</strong> ${usuario.puestoDeseado}</p>
+                    <p><strong>Descripción:</strong> ${usuario.descripcion}</p>
                     <div class="user-buttons">
                         <button class="button" onclick="window.location.href='tel:${usuario.telefono}'">Llamar</button>
-                        <button class="button" onclick="window.location.href='mailto:${usuario.email}?subject=Oportunidad de empleo para el puesto de ${usuario.puestoDeseado}'">Contactar</button>
+                        <button class="button" onclick="window.location.href='mailto:${usuario.email}?subject=Contacto de trabajo'">Contactar</button>
+                    </div>
+                </div>
+            `;
+            return usuarioItem;
+        };
+        companias.forEach(compania => {
+            const usuarioItem = document.createElement('li');
+            usuarioItem.innerHTML = `
+                <div class="user-container">
+                    <h3>${compania.nombreEmpresa}</h3>
+                    <p><strong>Email:</strong> ${compania.emailEmpresa}</p>
+                    <p><strong>Teléfono:</strong> ${compania.telefonoEmpresa}</p>
+                    <p><strong>Descripción:</strong> ${compania.descripcionEmpresa}</p>
+                    <div class="user-buttons">
+                        <button class="button" onclick="window.location.href='tel:${compania.telefonoEmpresa}'">Llamar</button>
+                        <button class="button" onclick="window.location.href='mailto:${compania.emailEmpresa}?subject=Contacto de trabajo'">Contactar</button>
                     </div>
                 </div>
             `;
             listaUsuarios.appendChild(usuarioItem);
+        });
+        usuariosDisponibles.forEach(usuario => {
+            const usuarioElemento = crearUsuarioElemento(usuario);
+            listaUsuarios.appendChild(usuarioElemento);
         });
     </script>
 
@@ -64,6 +82,7 @@
             padding: 20px;
             margin-bottom: 20px;
         }
+
         .user-buttons {
             display: flex;
             justify-content: space-between;
@@ -71,7 +90,7 @@
         }
 
         .button {
-            background-color: #81c784;
+            background-color: #64b5f6;
             color: white;
             padding: 10px 20px;
             border: none;
@@ -81,18 +100,19 @@
         }
 
         .button:hover {
-            background-color: #66bb6a;
+            background-color: #42a5f5;
         }
+
         body {
             font-family: Arial, sans-serif;
-            background-color: #e8f5e9; 
+            background-color: #e3f2fd; 
             margin: 0;
             padding: 0;
             color: #333;
         }
 
         header {
-            background-color: #66bb6a; 
+            background-color: #42a5f5; 
             padding: 10px;
             text-align: center;
         }
@@ -112,7 +132,7 @@
         }
 
         footer {
-            background-color: #388e3c;
+            background-color: #1e88e5;
             color: white;
             text-align: center;
             padding: 10px;
