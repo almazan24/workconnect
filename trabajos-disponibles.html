@@ -33,9 +33,10 @@
                 telefono: "+52 55 1234 5678"
             }
         ];
-        const listaTrabajos = document.getElementById('trabajos-lista');
 
-        trabajosDisponibles.forEach(trabajo => {
+        const listaTrabajos = document.getElementById('trabajos-lista');
+        const usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
+        const crearTrabajoElemento = (trabajo) => {
             const trabajoItem = document.createElement('li');
             trabajoItem.innerHTML = `
                 <div class="job-container">
@@ -52,17 +53,31 @@
                     </div>
                 </div>
             `;
+            return trabajoItem;
+        };
+        usuarios.forEach(usuario => {
+            const trabajoItem = document.createElement('li');
+            trabajoItem.innerHTML = `
+                <div class="job-container">
+                    <h3>${usuario.puesto}</h3>
+                    <p><strong>Nombre:</strong> ${usuario.nombre}</p>
+                    <p><strong>Email:</strong> ${usuario.email}</p>
+                    <p><strong>Teléfono:</strong> ${usuario.telefono}</p>
+                    <p><strong>Grado Académico:</strong> ${usuario.gradoAcademico}</p>
+                    <p><strong>Residencia:</strong> ${usuario.residencia}</p>
+                    <p><strong>¿Mudanza?:</strong> ${usuario.mudanza}</p>
+                    <div class="job-buttons">
+                        <button class="button" onclick="window.location.href='tel:${usuario.telefono}'">Llamar</button>
+                        <button class="button" onclick="window.location.href='mailto:${usuario.email}?subject=Oportunidad de trabajo'">Contactar</button>
+                    </div>
+                </div>
+            `;
             listaTrabajos.appendChild(trabajoItem);
         });
-        const logoutButton = document.getElementById('logout-button');
-
-if (logoutButton) {
-    logoutButton.addEventListener('click', () => {
-        localStorage.removeItem('usuarioActual');
-        localStorage.removeItem('empresaActual');
-        window.location.href = 'iniciar-sesion.html';
-    });
-}
+        trabajosDisponibles.forEach(trabajo => {
+            const trabajoElemento = crearTrabajoElemento(trabajo);
+            listaTrabajos.appendChild(trabajoElemento);
+        });
     </script>
 
     <style>
